@@ -1,0 +1,13 @@
+<mat-sidenav-container class="path-container">
+    <mat-sidenav mode="side" class="sidenav-container" opened>
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+              <span>Training Episodes</span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <app-episode-tree></app-episode-tree>
+    </mat-sidenav>
+    <mat-sidenav-content fxLayout="row" fxLayoutAlign="center center">
+        <app-path-visualizer fxFlexFill></app-path-visualizer>
+    </mat-sidenav-content>
+</mat-sidenav-container>

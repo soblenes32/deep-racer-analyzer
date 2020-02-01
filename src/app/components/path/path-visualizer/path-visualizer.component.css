@@ -1,0 +1,9 @@
+.bottom-container {
+    width:100%;
+    min-height:250px;
+    border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.top-container{
+    width: 100%;
+}

@@ -1,0 +1,22 @@
+<mat-toolbar fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-icon-button color="primary" aria-label="Menu button">
+        <mat-icon aria-hidden="false" aria-label="Menu icon" class="big-icon">menu</mat-icon>
+    </button>
+    <mat-button-toggle-group name="navigation" aria-label="Navigation" [(ngModel)]="navigationView">
+        <mat-button-toggle value="/home" routerLink="/home" matTooltip="Setup log file"><mat-icon aria-hidden="false" aria-label="Home icon">home</mat-icon></mat-button-toggle>
+        <mat-button-toggle value="/path" routerLink="/path" matTooltip="Vehicle paths" [disabled]="awslogService.stepArr.length < 1"><mat-icon aria-hidden="false" aria-label="Vehicle paths icon">timeline</mat-icon></mat-button-toggle>
+        <mat-button-toggle value="/reports" routerLink="/reports" matTooltip="Reports" [disabled]="awslogService.stepArr.length < 1"><mat-icon aria-hidden="false" aria-label="Reports icon">assessment</mat-icon></mat-button-toggle>
+        <mat-button-toggle value="/features" routerLink="/features" matTooltip="Policy analysis" [disabled]="awslogService.stepArr.length < 1"><mat-icon aria-hidden="false" aria-label="Policy analysis icon">image</mat-icon></mat-button-toggle>
+        <mat-button-toggle value="/export" routerLink="/export" matTooltip="Data export" [disabled]="awslogService.stepArr.length < 1"><mat-icon aria-hidden="false" aria-label="Export data icon">cloud_download</mat-icon></mat-button-toggle>
+    </mat-button-toggle-group>
+    <div fxLayout="column"  fxLayoutAlign="space-around start" [hidden]="awslogService.stepArr.length < 1">
+        <div fxLayout="row" fxLayoutAlign="end center">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">videogame_asset</mat-icon>
+            <span class="small-font"> {{awslogService.trainingProps['/MODEL_NAME']}}</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end center">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">public</mat-icon>
+            <span class="small-font"> {{awslogService.trainingProps['/WORLD_NAME']}}</span>
+        </div>
+    </div>
+</mat-toolbar>

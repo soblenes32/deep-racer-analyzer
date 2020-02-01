@@ -1,0 +1,97 @@
+<div fxLayout="column" fxLayoutAlign="center center" class="deepracer-background">
+    
+    <mat-card fxLayout="column" class="card-container">
+        <mat-card-title>Configure a DeepRacer Cloud Watch log stream to analyze</mat-card-title>
+        <mat-card-subtitle>Not sure what all this means? Click <a [routerLink]="" (click)="launchSetupModal()">here</a> to get set up in &lt;2 minutes.</mat-card-subtitle>
+        
+        <mat-card-content>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50%">
+                    <input matInput placeholder="Log group name" [(ngModel)]="awslogService.logGroupName" disabled required>
+                </mat-form-field>
+                <mat-form-field fxFlex="50%">
+                    <mat-label>AWS Region</mat-label>
+                    <mat-select [(ngModel)]="awslogService.awsRegion" disabled required>
+                        <mat-option [value]="'us-east-1'">us-east-1</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50%">
+                    <input matInput placeholder="AWS accesskey ID" [(ngModel)]="awslogService.awsAccessKeyId" required>
+                    <mat-hint align="start">Ex: AKIRR4EWH7YIMFFMXU6V</mat-hint>
+                </mat-form-field>
+                <mat-form-field fxFlex="50%">
+                    <input type="password" matInput placeholder="AWS secret access key" [(ngModel)]="awslogService.awsSecretAccessKey" required>
+                    <mat-hint align="start">Ex: dT5HaOGpLaiGwKZtFXfpF3ib5BBRLZmihZVFUHM8</mat-hint>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field fxFlex>
+                    <input matInput placeholder="Log stream name" [(ngModel)]="awslogService.logStreamName" required>
+                    <mat-hint align="start">Ex: sim-sptntk7nvv8c/2020-01-11T05-21-41.427Z_f5a4f498-7c16-44b0-b817-cf654e067cde/SimulationApplicationLogs</mat-hint>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="submitClick()">Submit</button>
+        </mat-card-actions>
+
+    </mat-card>
+    <mat-card fxLayout="column" class="card-container">
+        <mat-card-title>Log load status</mat-card-title>
+        <mat-card-content>
+            <!-- Logfile download -->
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="load-report-row">
+                <span [class.italic]="awslogService.loadStatus.logDownload=='IN_PROGRESS'">1. Download and parse logs</span>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <span class="status-text green" *ngIf="awslogService.loadStatus.logDownload=='READY'">Ready to begin</span>
+                    <span class="status-text blue" *ngIf="awslogService.loadStatus.logDownload=='IN_PROGRESS'">Downloading log partition {{awslogService.loadStatus.lastLogPartition}}...</span>
+                    <span class="status-text green" *ngIf="awslogService.loadStatus.logDownload=='COMPLETE'">Log stream download complete</span>
+                    <span class="status-text red" *ngIf="awslogService.loadStatus.logDownload=='ERROR'">Unable to download logs</span>
+                    <span class="status-text green" *ngIf="awslogService.loadStatus.logDownload=='SKIPPED'">Log data loaded from cache</span>
+                    <mat-icon class="green" aria-hidden="false" aria-label="ready" *ngIf="awslogService.loadStatus.logDownload=='READY' || awslogService.loadStatus.logDownload=='COMPLETE' || awslogService.loadStatus.logDownload=='SKIPPED'">check_circle_outline</mat-icon>
+                    <mat-progress-spinner [mode]="'indeterminate'" *ngIf="awslogService.loadStatus.logDownload=='IN_PROGRESS'" [diameter]="21" ></mat-progress-spinner>
+                    <mat-icon class="red" aria-hidden="false" aria-label="error" *ngIf="awslogService.loadStatus.logDownload=='ERROR'">error_outline</mat-icon>
+
+                </div>
+
+            </div>
+            <!-- Track file load -->
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="load-report-row">
+                <span [class.italic]="awslogService.loadStatus.trackFile=='IN_PROGRESS'">2. Load racetrack</span>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <span class="status-text green" *ngIf="awslogService.loadStatus.trackFile=='READY'">Ready to begin</span>
+                    <span class="status-text blue" *ngIf="awslogService.loadStatus.trackFile=='IN_PROGRESS'">Loading trackfile {{awslogService.trainingProps['/WORLD_NAME']}}...</span>
+                    <span class="status-text green" *ngIf="awslogService.loadStatus.trackFile=='COMPLETE'">Trackfile load complete</span>
+                    <span class="status-text red" *ngIf="awslogService.loadStatus.trackFile=='ERROR'">Unable to load racetrack file</span>
+                    <span class="status-text green" *ngIf="awslogService.loadStatus.trackFile=='SKIPPED'">Track loaded from cache</span>
+                    <mat-icon class="green" aria-hidden="false" aria-label="ready" *ngIf="awslogService.loadStatus.trackFile=='READY' || awslogService.loadStatus.trackFile=='COMPLETE' || awslogService.loadStatus.trackFile=='SKIPPED'">check_circle_outline</mat-icon>
+                    <mat-progress-spinner [mode]="'indeterminate'" *ngIf="awslogService.loadStatus.trackFile=='IN_PROGRESS'" [diameter]="21" ></mat-progress-spinner>
+                    <mat-icon class="red" aria-hidden="false" aria-label="error" *ngIf="awslogService.loadStatus.trackFile=='ERROR'">error_outline</mat-icon>
+                </div>
+            </div>
+
+            <!-- Save data to browser cache -->
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="load-report-row" >
+                <span [class.italic]="awslogService.loadStatus.cache=='IN_PROGRESS'">3. Compress and save data to browser cache</span>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <span class="status-text green" *ngIf="awslogService.loadStatus.cache=='READY'">Ready to begin</span>
+                    <span class="status-text blue" *ngIf="awslogService.loadStatus.cache=='IN_PROGRESS'">Compressing data...</span>
+                    <span class="status-text green" *ngIf="awslogService.loadStatus.cache=='COMPLETE'">Data compression complete</span>
+                    <span class="status-text red" *ngIf="awslogService.loadStatus.cache=='ERROR'">Unable to cache data</span>
+                    <span class="status-text green" *ngIf="awslogService.loadStatus.cache=='SKIPPED'">Data already cached</span>
+                    <mat-icon class="green" aria-hidden="false" aria-label="ready" *ngIf="awslogService.loadStatus.cache=='READY' || awslogService.loadStatus.cache=='COMPLETE' || awslogService.loadStatus.cache=='SKIPPED'">check_circle_outline</mat-icon>
+                    <mat-progress-spinner [mode]="'indeterminate'" *ngIf="awslogService.loadStatus.cache=='IN_PROGRESS'" [diameter]="21" ></mat-progress-spinner>
+                    <mat-icon class="red" aria-hidden="false" aria-label="error" *ngIf="awslogService.loadStatus.cache=='ERROR'">error_outline</mat-icon>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center" *ngIf="awslogService.loadStatus.cache=='COMPLETE' || awslogService.loadStatus.cache=='SKIPPED'">
+                <mat-icon class="red" aria-hidden="false" aria-label="error">outlined_flag</mat-icon>
+                <span class="spaced-out green">Ready to roll!</span>
+                <mat-icon class="red" aria-hidden="false" aria-label="error">outlined_flag</mat-icon>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

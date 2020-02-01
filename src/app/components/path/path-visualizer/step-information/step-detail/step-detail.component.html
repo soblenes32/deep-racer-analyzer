@@ -1,0 +1,20 @@
+<div *ngIf='!stepArr'>
+    <span>Click a step marker on the plot</span>
+</div>
+
+<table mat-table [dataSource]="stepArr" class="mat-elevation-z8" *ngIf='stepArr' fxFlex>
+    <!-- Key Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let param"> {{param.name}}</td>
+    </ng-container>
+
+    <!-- Value Column -->
+    <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef> Value </th>
+        <td mat-cell *matCellDef="let param"> {{param.value}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

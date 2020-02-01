@@ -1,0 +1,13 @@
+img {
+    max-width: 780px;
+    max-height: 380px;
+}
+.instruction-container{
+    min-height:380px;
+}
+.action-controls{
+    width:100%;
+}
+.setup-container{
+    min-height:480px;
+}

@@ -1,0 +1,25 @@
+.deepracer-background{
+    background-image: url("../../../assets/images/deepracer-background.jpg");
+    height: calc(100% - 64px);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.card-container{
+    margin-top: 30px;
+    min-width:660px;
+}
+
+.form-container{
+    margin-top:10px;
+}
+mat-form-field { margin-right: 12px; }
+.status-text{ margin-right:10px; }
+.green { color: #4dff4d; }
+.blue { color: #66a3ff; }
+.red { color: #ffa366; }
+
+.italic { font-style: italic; }
+.spaced-out { margin: 10px 10px 10px 10px; }
+
+.load-report-row { min-height: 30px !important;}

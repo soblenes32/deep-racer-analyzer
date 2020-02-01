@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, 'Helvetica Neue', sans-serif; }
+
+/*****************************************************************************
+* SVG plot styles
+******************************************************************************/
+.track-boundary {
+    fill: none;
+    stroke: #ffab00;
+    stroke-width: 3;
+}
+.track-centerline {
+    fill: none;
+    stroke: #302102;
+    stroke-width: 3;
+    stroke-dasharray: 10,5;
+}

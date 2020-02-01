@@ -1,0 +1,55 @@
+<div class="plot-presentation-container" fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field>
+            <mat-label>Step marker color data</mat-label>
+            <mat-select [(ngModel)]="plotPresentationService.stepMarkerColorStrategy">
+                <mat-option *ngFor="let strategy of stepMarkerColorStrategyArr" [value]="strategy">{{strategy}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class='color-sample-area left-margin-10' [style.background]="plotPresentationService.stepMarkerColorGradient1"></div>
+        <mat-form-field class="left-margin-10">
+            <mat-label>Step marker low gradient</mat-label>
+            <input matInput
+                [(ngModel)]='plotPresentationService.stepMarkerColorGradient1'>
+        </mat-form-field>
+
+        <div class='color-sample-area left-margin-10' [style.background]="plotPresentationService.stepMarkerColorGradient2"></div>
+        <mat-form-field class="left-margin-10">
+            <mat-label>Step marker high gradient</mat-label>
+            <input matInput
+                [(ngModel)]='plotPresentationService.stepMarkerColorGradient2' >
+        </mat-form-field>
+
+        <mat-form-field class="left-margin-10">
+            <mat-label>Step marker size</mat-label>
+            <input matInput type='number' [(ngModel)]='plotPresentationService.stepMarkerSize' >
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+
+        <mat-checkbox [(ngModel)]="plotPresentationService.showTrackCenterline">Show track center line</mat-checkbox>
+
+        <div class='color-sample-area left-margin-10' [style.background]="plotPresentationService.trackBorderColor"></div>
+        <mat-form-field class="left-margin-10">
+            <mat-label>Track border color</mat-label>
+            <input matInput
+                [(ngModel)]='plotPresentationService.trackBorderColor' >
+        </mat-form-field>
+
+        <div class='color-sample-area left-margin-10' [style.background]="plotPresentationService.trackCenterlineColor"></div>
+        <mat-form-field class="left-margin-10">
+            <mat-label>Track centerline color</mat-label>
+            <input matInput
+                [(ngModel)]='plotPresentationService.trackCenterlineColor' >
+        </mat-form-field>
+
+        <mat-checkbox class="left-margin-10" [(ngModel)]="plotPresentationService.showEpisodeSequenceLine">Episode sequence line</mat-checkbox>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+        <button mat-raised-button color="primary" (click)="updatePlot()">Update</button>
+    </div>
+
+</div>

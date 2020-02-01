@@ -1,0 +1,105 @@
+<mat-horizontal-stepper [linear]="false" #stepper fxFlexFill>
+    <mat-step>
+        <ng-template matStepLabel>IAM</ng-template>
+        <div class="setup-container" fxLayout="column">
+            <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex>
+                <img src="../../../../assets/images/IAM1.png">
+                <h3>Click <a href="https://console.aws.amazon.com/iam/home?region=us-east" target="_new">here</a> to go to AWS IAM. Sign in to your AWS account if prompted. Click on the "users" button in the IAM left-hand navigation menu.</h3>
+            </div>
+            <div class="action-controls" fxLayout="row" fxLayoutAlign="end center">
+                <button mat-button mat-raised-button color="primary" matStepperNext>Continue</button>
+            </div>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>User 1</ng-template>
+        <div class="setup-container" fxLayout="column">
+            <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex>
+                <img src="../../../../assets/images/IAM2.png">
+                <h3>Click on the blue "add user" button at the top of the users view.</h3>
+            </div>
+            <div class="action-controls" fxLayout="row" fxLayoutAlign="end center">
+                <button mat-button mat-raised-button color="primary" matStepperNext>Continue</button>
+            </div>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>User 2</ng-template>
+        <div class="setup-container" fxLayout="column">
+            <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex>
+                <img src="../../../../assets/images/IAM3.png">
+                <h3>Choose a name for the user that will have permission to download DeepRacer logstreams. Check the "programmatic access" checkbox. Click on "Next: permissions".</h3>
+            </div>
+            <div class="action-controls" fxLayout="row" fxLayoutAlign="end center">
+                <button mat-button mat-raised-button color="primary" matStepperNext>Continue</button>
+            </div>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Group</ng-template>
+        <div class="setup-container" fxLayout="column">
+            <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex>
+                <img src="../../../../assets/images/IAM4.png">
+                <h3>Click on the "create group" button.</h3>
+            </div>
+            <div class="action-controls" fxLayout="row" fxLayoutAlign="end center">
+                <button mat-button mat-raised-button color="primary" matStepperNext>Continue</button>
+            </div>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>User 3</ng-template>
+        <div class="setup-container" fxLayout="column">
+            <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex>
+                <img src="../../../../assets/images/IAM5.png">
+                <h3>Enter a group name and check "CloudWatchReadOnlyAccess". Submit the form.</h3>
+            </div>
+            <div class="action-controls" fxLayout="row" fxLayoutAlign="end center">
+                <button mat-button mat-raised-button color="primary" matStepperNext>Continue</button>
+            </div>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>User 4</ng-template>
+        <div class="setup-container" fxLayout="column">
+            <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex>
+                <img src="../../../../assets/images/IAM7.png">
+                <h3>Click "Next: Tags". Click "Next: Review". Click "Create user". Download your user's credentials and save them to a safe place.</h3>
+            </div>
+            <div class="action-controls" fxLayout="row" fxLayoutAlign="end center">
+                <button mat-button mat-raised-button color="primary" matStepperNext>Continue</button>
+            </div>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Logs 1</ng-template>
+        <div class="setup-container" fxLayout="column">
+            <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex>
+                <img src="../../../../assets/images/CLOUDWATCH1.png">
+                <h3>
+                    Navigate to the AWS CloudWatch management console by clicking <a href="https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#" target="_new">here</a>.
+                    Click on "Log groups" in the side nav, and then click on "/aws/sagemaker/TrainingJobs"
+                </h3>
+            </div>
+            <div class="action-controls" fxLayout="row" fxLayoutAlign="end center">
+                <button mat-button mat-raised-button color="primary" matStepperNext>Continue</button>
+            </div>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Logs 2</ng-template>
+        <div class="setup-container" fxLayout="column">
+            <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex>
+                <img src="../../../../assets/images/CLOUDWATCH2.png">
+                <h4>Select a log stream from the table. Identify the stream that corresponds to your training session of interest by looking at the 
+                    timestamp embedded in the stream name (highlighted). Copy the entire stream name.</h4>
+            </div>
+            <div class="action-controls" fxLayout="row" fxLayoutAlign="end center">
+                <button mat-button mat-raised-button color="primary" (click)="close()">Close</button>
+            </div>
+        </div>
+    </mat-step>
+    
+
+
+</mat-horizontal-stepper>

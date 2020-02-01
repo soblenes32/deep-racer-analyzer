@@ -1,0 +1,13 @@
+.plot-presentation-container{
+    padding: 15px 15px 15px 15px;
+    min-height:450px;
+}
+
+.color-sample-area{
+    min-width: 40px;
+    min-height: 40px;
+}
+
+.left-margin-10 {
+    margin-left: 10px;
+}
