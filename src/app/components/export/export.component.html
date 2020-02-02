@@ -1,1 +1,43 @@
-<p>export works!</p>
+<div class="deepracer-background" fxLayout="row" fxLayoutAlign="center center">
+
+    <!-- Training data object -->
+    <mat-card class="download-card" fxLayout="column">
+        <mat-card-header>
+            <div mat-card-avatar>
+                <mat-icon aria-hidden="false" aria-label="Download" class="big-icon">insert_drive_file</mat-icon>  
+            </div>
+            <mat-card-title>Training iterations</mat-card-title>
+            <mat-card-subtitle>JSON object</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content fxFlex>
+            <p>A nested JSON object that contains training series data at the iteration, episode, and step granularity. Step totals are rolled up at the episode level.</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="downloadTrainingObject()" fxFlex>
+                <mat-icon aria-hidden="false" aria-label="Download">get_app</mat-icon>  
+                Download
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+    <!-- Properties data object -->
+    <mat-card class="download-card" fxLayout="column">
+        <mat-card-header>
+            <div mat-card-avatar>
+                <mat-icon aria-hidden="false" aria-label="Download" class="big-icon">insert_drive_file</mat-icon>  
+            </div>
+            <mat-card-title>Training properties</mat-card-title>
+            <mat-card-subtitle>JSON object</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content fxFlex>
+            <p>An associative array JSON object that maps training environment parameter variables. Variable meta categories include vehicle settings such as ROS details, 
+                video encoding and kinesis stream details, and S3 bucket mappings.</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="downloadPropsObject()" fxFlex>
+                <mat-icon aria-hidden="false" aria-label="Download">get_app</mat-icon>  
+                Download
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

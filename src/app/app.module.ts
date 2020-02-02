@@ -35,6 +35,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatListModule } from '@angular/material/list';
 
 
 import { RacetrackService } from './services/racetrack/racetrack.service';
@@ -48,6 +49,10 @@ import { PlotPresentationComponent } from './components/path/path-visualizer/ste
 import { SetupComponent } from './components/home/setup/setup.component';
 import { ReportListComponent } from './components/reports/report-list/report-list.component';
 import { ExportComponent } from './components/export/export.component';
+import { ReportViewDirective } from './directives/report-view/report-view.directive';
+import { RewardIterationReportComponent } from './components/reports/reward-iteration-report/reward-iteration-report.component';
+import { RewardEpisodeReportComponent } from './components/reports/reward-episode-report/reward-episode-report.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 const appRoutes: Routes = [
@@ -56,6 +61,7 @@ const appRoutes: Routes = [
   { path: 'reports', component: ReportsComponent },
   { path: 'features', component: FeaturesComponent },
   { path: 'export', component: ExportComponent },
+  { path: 'about', component: AboutComponent },
   { path: '',   redirectTo: '/home', pathMatch: 'full' },
 ];
 
@@ -76,7 +82,11 @@ const appRoutes: Routes = [
     PlotPresentationComponent,
     SetupComponent,
     ReportListComponent,
-    ExportComponent
+    ExportComponent,
+    ReportViewDirective,
+    RewardIterationReportComponent,
+    RewardEpisodeReportComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -105,6 +115,7 @@ const appRoutes: Routes = [
     MatProgressSpinnerModule,
     MatDialogModule,
     MatStepperModule,
+    MatListModule,
 
     RouterModule.forRoot(
       appRoutes,

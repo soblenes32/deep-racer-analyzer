@@ -1,3 +1,4 @@
+import { ReportService } from './../../services/report/report.service';
 import { AwslogService } from './../../services/awslog/awslog.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -11,7 +12,8 @@ export class ReportsComponent implements OnInit {
 
   constructor(
     private awslogService: AwslogService,
-    private router: Router) { }
+    private router: Router,
+    public reportService: ReportService) { }
 
   ngOnInit() {
     // If track/log data has not been loaded, then attempt to load data from the browser cache

@@ -6,10 +6,8 @@
     background-size: cover;
 }
 
-.download-card {
-    width: 280px;
-    height: 300px;
-    margin-left: 25px;
+.about-card {
+    width: 600px;
 }
 
 .big-icon {

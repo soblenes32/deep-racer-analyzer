@@ -1,4 +1,4 @@
-<mat-sidenav-container class="path-container">
+<mat-sidenav-container class="report-container">
     <mat-sidenav mode="side" class="sidenav-container" opened>
         <mat-toolbar color="primary">
             <mat-toolbar-row>
@@ -8,6 +8,8 @@
         <app-report-list></app-report-list>
     </mat-sidenav>
     <mat-sidenav-content fxLayout="row" fxLayoutAlign="center center">
-        <div fxFlexFill>Report gets loaded here...</div>
+        <div *ngIf="!reportService.selectedReport">Select a report at left.</div>
+        <app-reward-iteration-report *ngIf="reportService.selectedReport === 'REWARD_ITERATION'" fxFlexFill></app-reward-iteration-report>
+        <app-reward-episode-report *ngIf="reportService.selectedReport === 'REWARD_EPISODE'" fxFlexFill></app-reward-episode-report>
     </mat-sidenav-content>
 </mat-sidenav-container>

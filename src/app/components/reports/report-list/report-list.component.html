@@ -1,1 +1,8 @@
-<p>report-list works!</p>
+<mat-selection-list #selectionList>
+    <mat-list-option *ngFor="let report of reportService.reportList" (click)="openReport(report.link)">
+        <mat-icon mat-list-icon>folder</mat-icon>
+        <h4 mat-line>{{report.name}}</h4>
+        <p mat-line> {{report.description}} </p>
+        <mat-divider></mat-divider>
+    </mat-list-option>
+</mat-selection-list>
