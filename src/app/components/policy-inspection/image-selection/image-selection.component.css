@@ -1,0 +1,20 @@
+.selection-container { cursor: pointer; }
+.selection-container:hover { 
+    cursor: pointer; 
+    border-style: solid;
+    border-width: 4px;
+    border-color: #4dff4d;
+}
+.selection-container.selected { 
+    cursor: pointer; 
+    border-style: solid;
+    border-width: 4px;
+    border-color: #7b1fa2; /*#6e4dff;*/
+}
+.selection-container > img { 
+    object-fit: cover; 
+}
+.vertical-scroll-container {
+    overflow-y:auto; 
+    height:100%;
+}

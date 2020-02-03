@@ -1,6 +1,6 @@
 import { RacetrackService } from './../racetrack/racetrack.service';
 import { Injectable } from '@angular/core';
-import { CloudWatchLogs, Credentials } from 'aws-sdk';
+import { CloudWatchLogs, Credentials, S3 } from 'aws-sdk';
 import { compress, decompress } from 'lz-string';
 
 
@@ -8,19 +8,26 @@ import { compress, decompress } from 'lz-string';
   providedIn: 'root'
 })
 export class AwslogService {
-
+  // AWS objects
   cloudwatch = null;
+  s3 = null;
+
   trainingProps = {};
   stepArr = []; // Array of all logs
   hrArr = []; // Array of all header records
   logObj = {}; // Associative array by iteration and episode
+  s3LocationData: any = {}; // Associative array of the s3 bucket, object key, region
+  modelFileArr = []; // List of objects with short and fully qualified S3 model files (*.pb)
+  s3FileData = null;
 
   loadStatus = { // [READY, IN_PROGRESS, COMPLETE, ERROR, SKIPPED]
     logDownload: 'READY',
     trackFile: 'READY',
     cache: 'READY',
+    s3list: 'READY',
     messages: '',
-    lastLogPartition: 0
+    lastLogPartition: 0,
+    lastS3ListPartition: 0
   };
 
   /**************************************************************************************
@@ -58,6 +65,7 @@ export class AwslogService {
 
     const awscredentials = new Credentials(this.awsAccessKeyId, this.awsSecretAccessKey);
     this.cloudwatch = new CloudWatchLogs({region: this.awsRegion, credentials: awscredentials});
+
     // Clear old data
     this.clearLocalVariables();
     // Recursively fetch all data
@@ -108,25 +116,13 @@ export class AwslogService {
           this.loadStatus.trackFile = 'ERROR';
           return;
         }
-
         this.loadStatus.trackFile = 'COMPLETE';
-        // Print loaded data
-        this.printLogState();
-        // Persist log data if possible
-        this.loadStatus.cache = 'IN_PROGRESS';
-        try {
-          await new Promise(r => {
-            setTimeout(r, 1000);
-          });
-          this.saveLogDataToBrowserCache();
-        } catch (err) {
-          this.loadStatus.cache = 'ERROR';
-          return;
-        }
-        this.loadStatus.cache = 'COMPLETE';
+        // List S3 files
+        this.listS3ModelFiles();
       }
     });
   }
+
 
   /**************************************************************************************
    * Parse cloudwatch deepracer log data into usable structures
@@ -185,6 +181,15 @@ export class AwslogService {
         const modelName = m.split('/')[1];
         this.trainingProps['/MODEL_NAME'] = modelName;
       }
+
+      // 5) Extract sagemakerBootstrap properties
+      if (m.includes('simtrace_data: setup_mutipart_upload on s3_bucket ')) {
+        const s3BucketStr = m.split('simtrace_data: setup_mutipart_upload on s3_bucket ')[1];
+        const s3BucketArr = s3BucketStr.split(' ');
+        this.s3LocationData.bucket = s3BucketArr[0]; // bucket eg. aws-deepracer-d76b507e-dda8-403a-b307-bf0afe8a8184
+        this.s3LocationData.directory = s3BucketArr[2].split('/')[0]; // Directory (object_key)
+        this.s3LocationData.region = s3BucketArr[4]; // Region string
+      }
     });
   }
 
@@ -197,14 +202,18 @@ export class AwslogService {
     const chrArr = compress(JSON.stringify(this.hrArr));
     const clogObj = compress(JSON.stringify(this.logObj));
     const ctrainingProps = compress(JSON.stringify(this.trainingProps));
+    const cs3location = compress(JSON.stringify(this.s3LocationData));
+    const cmodelFileArr = compress(JSON.stringify(this.modelFileArr));
     if (chrArr.length + clogObj.length < 5000000) {
-      // localStorage.setItem('logGroupName', this.logGroupName);
       localStorage.setItem('logStreamName', this.logStreamName);
       localStorage.setItem('awsAccessKeyId', this.awsAccessKeyId);
-      // localStorage.setItem('awsRegion', this.awsRegion);
+      localStorage.setItem('awsRegion', this.awsRegion);
       localStorage.setItem('hrArr', chrArr);
       localStorage.setItem('logObj', clogObj);
       localStorage.setItem('trainingProps', ctrainingProps);
+      localStorage.setItem('s3location', cs3location);
+      localStorage.setItem('modelFileArr', cmodelFileArr);
+
       console.log('Log data saved to browser memory');
     } else {
       console.log('Log data was too big to fit in browser memory');
@@ -217,20 +226,21 @@ export class AwslogService {
    **************************************************************************************/
   loadLogDataFromBrowserCache() {
     console.log('Attempting to decompress data from brower storage');
-    // this.logGroupName = localStorage.getItem('logGroupName');
     this.logStreamName = localStorage.getItem('logStreamName');
     this.awsAccessKeyId = localStorage.getItem('awsAccessKeyId');
-    // this.awsRegion = localStorage.getItem('awsRegion');
     const trainingProps = decompress(localStorage.getItem('trainingProps'));
-    // const stepArr = decompress(localStorage.getItem('stepArr'));
     const hrArr = decompress(localStorage.getItem('hrArr'));
     const logObj = decompress(localStorage.getItem('logObj'));
+    const s3location = decompress(localStorage.getItem('s3location'));
+    const modelFileArr = decompress(localStorage.getItem('modelFileArr'));
 
     if (logObj && logObj.length > 0 && trainingProps) {
       console.log('Cached data found and loaded');
-      this.trainingProps = JSON.parse(trainingProps) || {};
-      this.hrArr = JSON.parse(hrArr) || [];
-      this.logObj = JSON.parse(logObj) || {};
+      this.trainingProps = (trainingProps) ? JSON.parse(trainingProps) : {};
+      this.hrArr = (hrArr) ? JSON.parse(hrArr) : [];
+      this.logObj = (logObj) ? JSON.parse(logObj) : {};
+      this.s3LocationData = (s3location) ? JSON.parse(s3location) : {};
+      this.modelFileArr = (modelFileArr) ? JSON.parse(modelFileArr) : [];
 
       // Load stepArr from logObj
       this.stepArr = [];
@@ -253,6 +263,7 @@ export class AwslogService {
     this.loadStatus.logDownload = 'SKIPPED';
     this.loadStatus.trackFile = 'SKIPPED';
     this.loadStatus.cache = 'SKIPPED';
+    this.loadStatus.s3list = 'SKIPPED';
 
     console.log('Decompression complete');
     return true;
@@ -267,11 +278,79 @@ export class AwslogService {
 
   printLogState() {
     console.log('trainingProps : stepArr : hrArr : logObj');
-    console.log('***************************************');
+    console.log('**********************');
     console.dir(this.trainingProps);
     console.dir(this.stepArr);
     console.dir(this.hrArr);
     console.dir(this.logObj);
-    console.log('***************************************');
+    console.dir(this.s3LocationData);
+    console.dir(this.modelFileArr);
+    console.log('**********************');
+  }
+
+
+
+  /**************************************************************************************
+   * Get a listing of all *.pb files in the S3 bucket key associated with the training
+   **************************************************************************************/
+  listS3ModelFiles() {
+    if (!this.s3LocationData.bucket) {
+      this.loadStatus.s3list = 'ERROR';
+      return;
+    }
+    const self = this;
+    const awscredentials = new Credentials(this.awsAccessKeyId, this.awsSecretAccessKey);
+    this.s3 = new S3({params: {Bucket: this.s3LocationData.bucket}, credentials: awscredentials});
+
+    this.loadStatus.lastS3ListPartition = this.loadStatus.lastS3ListPartition + 1;
+    this.s3.listObjectsV2({Prefix: this.s3LocationData.directory + '/model'}, async function(err, data) { // Delimiter: '/',
+      if (err) {
+        console.dir(err);
+        self.loadStatus.s3list = 'ERROR';
+        return;
+      } else {
+        self.modelFileArr = data.Contents.filter((f) => f.Key.endsWith('.pb'));
+        self.loadStatus.s3list = 'COMPLETE';
+
+        // Print loaded data
+        self.printLogState();
+        // Persist log data if possible
+        self.loadStatus.cache = 'IN_PROGRESS';
+        try {
+          await new Promise(r => {
+            setTimeout(r, 1000);
+          });
+          self.saveLogDataToBrowserCache();
+        } catch (err) {
+          self.loadStatus.cache = 'ERROR';
+          return;
+        }
+        self.loadStatus.cache = 'COMPLETE';
+      }
+    });
+  }
+
+
+  /**************************************************************************************
+   * Download the S3 file with indicated key
+   **************************************************************************************/
+  downloadS3ModelFile(fileKey, successCallback, errorCallback) {
+    if (!this.s3LocationData.bucket) { return; }
+    const self = this;
+    const awscredentials = new Credentials(this.awsAccessKeyId, this.awsSecretAccessKey);
+    this.s3 = new S3({params: {Bucket: this.s3LocationData.bucket}, credentials: awscredentials});
+
+    console.log('Key: ' + fileKey);
+    this.s3.getObject({Key: fileKey },
+      (error, data) => {
+        if (error != null) {
+          console.dir(error);
+          errorCallback(error);
+        } else {
+          console.dir(data);
+          this.s3FileData = data;
+          successCallback(data);
+        }
+      });
   }
 }

@@ -1,0 +1,9 @@
+<div class="vertical-scroll-container">
+    <mat-grid-list cols="8" rowHeight="1:1">
+        <mat-grid-tile *ngFor="let imageObj of policyInspectionService.imageArr" (click)="selectImage(imageObj)">
+            <div class="selection-container" [ngClass]="{'selected': imageObj === policyInspectionService.selectedImage}">
+                <img src="{{imageObj.uri}}">
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

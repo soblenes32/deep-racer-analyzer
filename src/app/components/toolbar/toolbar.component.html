@@ -6,7 +6,7 @@
         <mat-button-toggle value="/home" routerLink="/home" matTooltip="Setup log file"><mat-icon aria-hidden="false" aria-label="Home icon">home</mat-icon></mat-button-toggle>
         <mat-button-toggle value="/path" routerLink="/path" matTooltip="Vehicle paths" [disabled]="awslogService.stepArr.length < 1"><mat-icon aria-hidden="false" aria-label="Vehicle paths icon">timeline</mat-icon></mat-button-toggle>
         <mat-button-toggle value="/reports" routerLink="/reports" matTooltip="Reports" [disabled]="awslogService.stepArr.length < 1"><mat-icon aria-hidden="false" aria-label="Reports icon">assessment</mat-icon></mat-button-toggle>
-        <mat-button-toggle value="/features" routerLink="/features" matTooltip="Policy analysis" [disabled]="awslogService.stepArr.length < 1"><mat-icon aria-hidden="false" aria-label="Policy analysis icon">image</mat-icon></mat-button-toggle>
+        <mat-button-toggle value="/policy-inspection" routerLink="/policy-inspection" matTooltip="Policy inspection" [disabled]="awslogService.stepArr.length < 1"><mat-icon aria-hidden="false" aria-label="Policy inspection icon">image</mat-icon></mat-button-toggle>
         <mat-button-toggle value="/export" routerLink="/export" matTooltip="Data export" [disabled]="awslogService.stepArr.length < 1"><mat-icon aria-hidden="false" aria-label="Export data icon">cloud_download</mat-icon></mat-button-toggle>
         <mat-button-toggle value="/about" routerLink="/about" matTooltip="About this tool"><mat-icon aria-hidden="false" aria-label="Information icon">info</mat-icon></mat-button-toggle>
     </mat-button-toggle-group>

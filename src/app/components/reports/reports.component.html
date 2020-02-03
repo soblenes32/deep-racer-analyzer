@@ -5,7 +5,9 @@
               <span>Reports</span>
             </mat-toolbar-row>
         </mat-toolbar>
-        <app-report-list></app-report-list>
+        <div class="sidenav-scroll-container">
+            <app-report-list></app-report-list>
+        </div>
     </mat-sidenav>
     <mat-sidenav-content fxLayout="row" fxLayoutAlign="center center">
         <div *ngIf="!reportService.selectedReport">Select a report at left.</div>

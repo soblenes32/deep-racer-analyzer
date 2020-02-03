@@ -50,7 +50,6 @@ export class RewardIterationReportComponent implements OnInit, AfterViewInit {
     Object.keys(assocArr).forEach((key) => {
       this.renderArr.push({x: +key, y: assocArr[key]});
     });
-    console.dir(this.renderArr);
   }
 
   /**************************************************************************************************

@@ -9,3 +9,8 @@
 .sidenav-container{
     min-width: 400px;
 }
+
+.sidenav-scroll-container {
+    overflow-x: auto; 
+    height: calc(100% - 64px);
+}

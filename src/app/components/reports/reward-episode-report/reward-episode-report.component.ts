@@ -41,7 +41,6 @@ export class RewardEpisodeReportComponent implements OnInit, AfterViewInit {
 
   buildData() {
     this.renderArr = this.awslogService.hrArr.map((e) => ({x: e.iteration, y: +e['total reward']}));
-    console.dir(this.renderArr);
   }
 
   /**************************************************************************************************

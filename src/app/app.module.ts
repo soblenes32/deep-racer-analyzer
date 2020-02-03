@@ -1,5 +1,4 @@
 import { LogTreeNodeDatabaseService } from './services/logtreenodedatabase/log-tree-node-database.service';
-import { FeaturesComponent } from './components/features/features.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { PathComponent } from './components/path/path.component';
 import { HomeComponent } from './components/home/home.component';
@@ -49,17 +48,20 @@ import { PlotPresentationComponent } from './components/path/path-visualizer/ste
 import { SetupComponent } from './components/home/setup/setup.component';
 import { ReportListComponent } from './components/reports/report-list/report-list.component';
 import { ExportComponent } from './components/export/export.component';
-import { ReportViewDirective } from './directives/report-view/report-view.directive';
 import { RewardIterationReportComponent } from './components/reports/reward-iteration-report/reward-iteration-report.component';
 import { RewardEpisodeReportComponent } from './components/reports/reward-episode-report/reward-episode-report.component';
 import { AboutComponent } from './components/about/about.component';
+import { PolicyInspectionComponent } from './components/policy-inspection/policy-inspection.component';
+import { ModelListComponent } from './components/policy-inspection/model-list/model-list.component';
+import { ImageSelectionComponent } from './components/policy-inspection/image-selection/image-selection.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'path', component: PathComponent },
   { path: 'reports', component: ReportsComponent },
-  { path: 'features', component: FeaturesComponent },
+  { path: 'policy-inspection', component: PolicyInspectionComponent },
   { path: 'export', component: ExportComponent },
   { path: 'about', component: AboutComponent },
   { path: '',   redirectTo: '/home', pathMatch: 'full' },
@@ -72,7 +74,6 @@ const appRoutes: Routes = [
     HomeComponent,
     PathComponent,
     ReportsComponent,
-    FeaturesComponent,
     EpisodeTreeComponent,
     PathVisualizerComponent,
     StepInformationComponent,
@@ -83,10 +84,12 @@ const appRoutes: Routes = [
     SetupComponent,
     ReportListComponent,
     ExportComponent,
-    ReportViewDirective,
     RewardIterationReportComponent,
     RewardEpisodeReportComponent,
-    AboutComponent
+    AboutComponent,
+    PolicyInspectionComponent,
+    ModelListComponent,
+    ImageSelectionComponent
   ],
   imports: [
     BrowserModule,
@@ -116,6 +119,7 @@ const appRoutes: Routes = [
     MatDialogModule,
     MatStepperModule,
     MatListModule,
+    MatGridListModule,
 
     RouterModule.forRoot(
       appRoutes,

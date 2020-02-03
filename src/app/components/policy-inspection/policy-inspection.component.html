@@ -1,0 +1,24 @@
+<mat-sidenav-container class="policy-inspection-container">
+    <mat-sidenav mode="side" class="sidenav-container" opened>
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+              <span>Model files</span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <div class="sidenav-scroll-container">
+            <app-model-list></app-model-list>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content fxLayout="row" fxLayoutAlign="center center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+            <div class="top-container" fxFlex>
+                Main content
+            </div>
+            <div class="bottom-container" fxFlex="25">
+                <app-image-selection></app-image-selection>
+            </div>
+        </div>
+
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
