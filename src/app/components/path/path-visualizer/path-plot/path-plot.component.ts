@@ -82,12 +82,19 @@ export class PathPlotComponent implements OnInit, AfterViewInit {
     // Scale the smaller dimension to the same total distance as the larger dimension so that the track doesn't skew
     const xLen = xMax - xMin;
     const yLen = yMax - yMin;
-    if (xLen > yLen) {
-      const rescaleAmt = (xLen - yLen) / 2;
+
+    const windowWOverH = width / height;
+    const nativeTrackWOverH = xLen / yLen;
+
+
+    if (windowWOverH > nativeTrackWOverH) { // Domain needs to be wider
+      const rescaleRatio = 1 / (nativeTrackWOverH / windowWOverH);
+      const rescaleAmt = ((xLen * rescaleRatio) - xLen) / 2;
       xMin -= rescaleAmt;
       xMax += rescaleAmt;
-    } else if (xLen < yLen) {
-      const rescaleAmt = (yLen - xLen) / 2;
+    } else if (windowWOverH < nativeTrackWOverH) { // Domain needs to be taller
+      const yRescaleRatio = 1 / (windowWOverH / nativeTrackWOverH);
+      const rescaleAmt = ((yLen * yRescaleRatio) - yLen)  / 2 ;
       yMin -= rescaleAmt;
       yMax += rescaleAmt;
     }

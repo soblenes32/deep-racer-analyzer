@@ -1,0 +1,12 @@
+.green { color: #4dff4d; }
+.blue { color: #66a3ff; }
+.red { color: #ffa366; }
+
+.snackbar-container-ok{
+    background: #212121;
+    color: #4dff4d;
+}
+.snackbar-container-error{
+    background: #212121;
+    color: #ffa366;
+}

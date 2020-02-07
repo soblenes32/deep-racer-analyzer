@@ -35,7 +35,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatListModule } from '@angular/material/list';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { RacetrackService } from './services/racetrack/racetrack.service';
 import { EpisodeTreeComponent } from './components/path/episode-tree/episode-tree.component';
@@ -54,7 +55,7 @@ import { AboutComponent } from './components/about/about.component';
 import { PolicyInspectionComponent } from './components/policy-inspection/policy-inspection.component';
 import { ModelListComponent } from './components/policy-inspection/model-list/model-list.component';
 import { ImageSelectionComponent } from './components/policy-inspection/image-selection/image-selection.component';
-import { MatGridListModule } from '@angular/material/grid-list';
+
 
 
 const appRoutes: Routes = [
@@ -120,6 +121,7 @@ const appRoutes: Routes = [
     MatStepperModule,
     MatListModule,
     MatGridListModule,
+    MatSnackBarModule,
 
     RouterModule.forRoot(
       appRoutes,

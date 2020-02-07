@@ -1,6 +1,10 @@
 <mat-selection-list #selectionList [(ngModel)]="policyInspectionService.selectedModel">
-    <mat-list-option *ngFor="let modelFile of awslogService.modelFileArr" [value]="modelFile" (click)="fileSelectEvent()">
-        <mat-icon mat-list-icon>folder_open</mat-icon>
+    <mat-list-option *ngFor="let modelFile of awslogService.modelFileArr" [value]="modelFile" (click)="fileSelectEvent()" >
+        <mat-icon mat-list-icon *ngIf="!modelFile.loadStatus">folder_open</mat-icon>
+        <mat-icon mat-list-icon *ngIf="modelFile.loadStatus==='COMPLETE'" class="green">check_circle_outline</mat-icon>
+        <mat-progress-spinner mat-list-icon *ngIf="modelFile.loadStatus==='DOWNLOADING'" [mode]="'indeterminate'" [diameter]="21" class="blue" ></mat-progress-spinner>
+        <mat-icon mat-list-icon *ngIf="modelFile.loadStatus==='DOWNLOAD_ERROR'" class="red">warning</mat-icon>
+
         <h4 mat-line>{{fileName(modelFile)}}</h4>
         <p mat-line> {{fileSize(modelFile)| number}} kb</p>
         <mat-divider></mat-divider>
