@@ -37,6 +37,6 @@ export class RacetrackService {
 
   loadRaceTrackByWorldString(worldString) {
     const fileName = worldString + '.json';
-    this.loadRaceTrackFile('./../assets/track-data/' + fileName);
+    this.loadRaceTrackFile('assets/track-data/' + fileName);
   }
 }
