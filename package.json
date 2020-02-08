@@ -1,10 +1,11 @@
 {
-  "name": "deepracer-log-analysis",
+  "name": "deepracer-analyzer",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:Release": "ng build --prod --base-href /deep-racer-analyzer/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
