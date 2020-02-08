@@ -12,7 +12,7 @@ import { AwslogService } from './../../services/awslog/awslog.service';
 export class HomeComponent implements OnInit {
 
   constructor(private racetrackService: RacetrackService,
-              private awslogService: AwslogService,
+              public awslogService: AwslogService,
               public dialog: MatDialog) {
     this.racetrackService = racetrackService;
     this.awslogService = awslogService;

@@ -25,7 +25,7 @@ export class EpisodeTreeComponent implements OnInit {
   treeControl: FlatTreeControl<ItemFlatNode>;
   treeFlattener: MatTreeFlattener<ItemNode, ItemFlatNode>;
   dataSource: MatTreeFlatDataSource<ItemNode, ItemFlatNode>;
-  private logSelection: SelectionModel<ItemFlatNode>;
+  public logSelection: SelectionModel<ItemFlatNode>;
 
   // tslint:disable-next-line: variable-name
   constructor(private logTreeNodeDatabaseService: LogTreeNodeDatabaseService) {

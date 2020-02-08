@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class ImageSelectionComponent implements OnInit {
 
 
-  constructor(private policyInspectionService: PolicyInspectionService) { }
+  constructor(public policyInspectionService: PolicyInspectionService) { }
 
   ngOnInit() {
     if (this.policyInspectionService.imageArr.length > 0 && !this.policyInspectionService.selectedImage) {

@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class PlotPresentationComponent implements OnInit {
 
   constructor(
-    private plotPresentationService: PlotPresentationService,
+    public plotPresentationService: PlotPresentationService,
     private subscriptionService: SubscriptionService) { }
   stepMarkerColorStrategyArr = ['REWARD', 'VELOCITY', 'EPISODE', 'ACTION_CLASS'];
 
