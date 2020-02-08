@@ -1,4 +1,4 @@
-<mat-toolbar fxLayout="row" fxLayoutAlign="space-between center">
+<mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!isMobileBrowser()">
     <button mat-icon-button color="primary" aria-label="Menu button">
         <mat-icon aria-hidden="false" aria-label="Menu icon" class="big-icon">menu</mat-icon>
     </button>

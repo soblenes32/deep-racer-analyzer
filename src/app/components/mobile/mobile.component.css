@@ -1,0 +1,15 @@
+.deepracer-background{
+    background-image: url("../../../assets/images/deepracer-background.jpg");
+    height: calc(100% - 64px);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.about-card {
+    width: 600px;
+}
+
+.big-icon {
+    font-size: 49px;
+}

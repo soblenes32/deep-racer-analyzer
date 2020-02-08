@@ -19,8 +19,8 @@ export class PlotPresentationService {
 
   constructor() {
     this.stepMarkerColorStrategy = 'REWARD';
-    this.stepMarkerColorGradient1 = '#69b3a2';
-    this.stepMarkerColorGradient2 = '#8000ff';
+    this.stepMarkerColorGradient1 = '#00ffff';
+    this.stepMarkerColorGradient2 = '#ff0000';
     this.stepMarkerSize = 3;
     this.trackBorderColor = '#ffab00';
     this.showTrackCenterline = true;

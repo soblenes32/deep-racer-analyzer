@@ -158,7 +158,7 @@ export class PathPlotComponent implements OnInit, AfterViewInit {
   getStepValue(step) {
     let val = 0;
     val = this.plotPresentationService.stepMarkerColorStrategy === 'REWARD' ? step.reward : val;
-    val = this.plotPresentationService.stepMarkerColorStrategy === 'VELOCITY' ? step.reward : val;
+    val = this.plotPresentationService.stepMarkerColorStrategy === 'VELOCITY' ? step.velocity : val;
     val = this.plotPresentationService.stepMarkerColorStrategy === 'EPISODE' ? step.episode : val;
     val = this.plotPresentationService.stepMarkerColorStrategy === 'ACTION_CLASS' ? step.action : val;
     return val;
@@ -172,12 +172,13 @@ export class PathPlotComponent implements OnInit, AfterViewInit {
     let min = 0;
     let max = 0;
 
-    max = (this.plotPresentationService.stepMarkerColorStrategy === 'VELOCITY') ? 5 : max;
-
     episodeArr.forEach((episode) => {
       episode.steps.forEach(step => {
         if (this.plotPresentationService.stepMarkerColorStrategy === 'REWARD') {
           max = (max < step.reward) ? step.reward : max;
+        } else if (this.plotPresentationService.stepMarkerColorStrategy === 'VELOCITY') {
+          min = (min > step.velocity) ? step.velocity : min;
+          max = (max < step.velocity) ? step.velocity : max;
         } else if (this.plotPresentationService.stepMarkerColorStrategy === 'EPISODE') {
           min = (min > step.episode) ? step.episode : min;
           max = (max < step.episode) ? step.episode : max;
@@ -189,7 +190,7 @@ export class PathPlotComponent implements OnInit, AfterViewInit {
     });
 
     if (this.plotPresentationService.showEpisodeSequenceLine) {
-      this.plotStepLines(episodeArr, min, max);
+      this.plotStepLines(episodeArr);
     }
     this.plotStepCircles(episodeArr, min, max);
   }
@@ -242,7 +243,7 @@ export class PathPlotComponent implements OnInit, AfterViewInit {
   /**********************************************************************************
    * plotStepLines - Makes dots for all steps in selected episodes
    **********************************************************************************/
-  plotStepLines(episodeArr, min, max) {
+  plotStepLines(episodeArr) {
     const self = this;
     const line = d3.line()
       .x((step) => this.xScale(step.x)) // set the x values for the line generator

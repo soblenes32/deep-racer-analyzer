@@ -191,6 +191,25 @@ export class AwslogService {
         this.s3LocationData.region = s3BucketArr[4]; // Region string
       }
     });
+    // 6) Post-process velocities based on position and timestamp
+    Object.values(this.logObj).forEach((i: any) => {
+      Object.values(i).forEach((e: any) => {
+        for (let idx = 0; idx < e.steps.length; idx++) {
+          if (idx === 0) {
+            e.steps[idx].velocity = 0;
+          } else {
+            const x0 = e.steps[idx].x;
+            const x1 = e.steps[idx - 1].x;
+            const y0 = e.steps[idx].y;
+            const y1 = e.steps[idx - 1].y;
+            const distance = Math.hypot(x0 - x1, y0 - y1);
+            const secondsElapsed = (+e.steps[idx].timestamp) - (e.steps[idx - 1].timestamp);
+            e.steps[idx].velocity = distance / secondsElapsed; // m/s
+          }
+        }
+      });
+    });
+
   }
 
   /**************************************************************************************

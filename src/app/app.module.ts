@@ -1,3 +1,4 @@
+import { MobileRouteGuardService } from './services/mobile-route-guard/mobile-route-guard.service';
 import { LogTreeNodeDatabaseService } from './services/logtreenodedatabase/log-tree-node-database.service';
 import { ReportsComponent } from './components/reports/reports.component';
 import { PathComponent } from './components/path/path.component';
@@ -55,17 +56,19 @@ import { AboutComponent } from './components/about/about.component';
 import { PolicyInspectionComponent } from './components/policy-inspection/policy-inspection.component';
 import { ModelListComponent } from './components/policy-inspection/model-list/model-list.component';
 import { ImageSelectionComponent } from './components/policy-inspection/image-selection/image-selection.component';
-
-
+import { MobileComponent } from './components/mobile/mobile.component';
 
 const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'path', component: PathComponent },
-  { path: 'reports', component: ReportsComponent },
-  { path: 'policy-inspection', component: PolicyInspectionComponent },
-  { path: 'export', component: ExportComponent },
-  { path: 'about', component: AboutComponent },
-  { path: '',   redirectTo: '/home', pathMatch: 'full' },
+  { path: 'mobile', component: MobileComponent },
+  { path: '', canActivate: [MobileRouteGuardService], children: [
+    { path: 'home', component: HomeComponent },
+    { path: 'path', component: PathComponent },
+    { path: 'reports', component: ReportsComponent },
+    { path: 'policy-inspection', component: PolicyInspectionComponent },
+    { path: 'export', component: ExportComponent },
+    { path: 'about', component: AboutComponent },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
+  ]}
 ];
 
 @NgModule({
@@ -90,7 +93,8 @@ const appRoutes: Routes = [
     AboutComponent,
     PolicyInspectionComponent,
     ModelListComponent,
-    ImageSelectionComponent
+    ImageSelectionComponent,
+    MobileComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +104,6 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     FlexLayoutModule,
     HttpClientModule,
-
     MatToolbarModule,
     MatButtonModule,
     MatButtonToggleModule,
