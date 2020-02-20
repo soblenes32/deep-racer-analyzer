@@ -1,9 +1,10 @@
-<img src="./src/assets/images/deepracer-background.png" alt="Deepracer mast image" width="100%" height="250px"/>
+:-------------------------:|:-------------------------:|:-------------------------:
+![](src/assets/images/sample/sample_reports.png) | ![](src/assets/images/sample/sample_track_visualizer.png) | ![](src/assets/images/sample/data_export.png)
 # DeepRacer Analyzer
 > A browser based application to inspect DeepRacer model training performance logs
 
 The DeepRacer Analyzer ingests DeepRacer CloudWatch model training logs and S3 model training artifacts to visualize the performance of model training runs. 
-This application is in large part an online reproduction of the excellent AWS DeepRacer workshops [log analysis](https://github.com/aws-samples/aws-deepracer-workshops/tree/master/log-analysis) project
+This application is in large part a web-based reproduction of the excellent AWS DeepRacer workshops [log analysis](https://github.com/aws-samples/aws-deepracer-workshops/tree/master/log-analysis) project
 in an accessible format.
 
 Link to the [sample app](https://soblenes32.github.io/deep-racer-analyzer/) on GitHub.
@@ -17,6 +18,3 @@ Clone the Github project to your local workstation
 ## Usage
 
 Navigate to the project root and run "ng serve"
-
-## Acknowledgements
-- This project is principly based on 
