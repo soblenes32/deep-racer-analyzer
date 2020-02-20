@@ -11,9 +11,9 @@ Link to the [sample app](https://soblenes32.github.io/deep-racer-analyzer/) on G
 
 ## Installation
 
-Install [NPM](https://nodejs.org/en/)
-Install the [Angular CLI](https://cli.angular.io/)
-Clone the Github project to your local workstation
+Install [NPM](https://nodejs.org/en/)  
+Install the [Angular CLI](https://cli.angular.io/)  
+Clone the Github project to your local workstation  
 
 ## Usage
 
