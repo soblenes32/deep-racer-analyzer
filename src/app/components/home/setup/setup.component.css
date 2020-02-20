@@ -1,6 +1,6 @@
 img {
     max-width: 780px;
-    max-height: 380px;
+    max-height: 280px;
 }
 .instruction-container{
     min-height:380px;
@@ -8,6 +8,6 @@ img {
 .action-controls{
     width:100%;
 }
-.setup-container{
-    min-height:480px;
-}
+/*.setup-container{
+    min-height:580px;
+}*/

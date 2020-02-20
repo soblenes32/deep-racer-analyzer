@@ -31,6 +31,6 @@ export class HomeComponent implements OnInit {
   }
 
   launchSetupModal() {
-    const dialogRef = this.dialog.open(SetupComponent, { width: '900px', height: '600px' });
+    const dialogRef = this.dialog.open(SetupComponent, { width: '900px', height: '800px' });
   }
 }
