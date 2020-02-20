@@ -1,5 +1,6 @@
 :-------------------------:|:-------------------------:|:-------------------------:
-![](src/assets/images/sample/sample_reports.png) | ![](src/assets/images/sample/sample_track_visualizer.png) | ![](src/assets/images/sample/data_export.png)
+![reports](./src/assets/images/sample/sample_reports.png =200) | ![track](./src/assets/images/sample/sample_track_visualizer.png =200) | ![export](./src/assets/images/sample/data_export.png =200)
+
 # DeepRacer Analyzer
 > A browser based application to inspect DeepRacer model training performance logs
 
