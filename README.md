@@ -7,7 +7,7 @@ The DeepRacer Analyzer ingests DeepRacer CloudWatch model training logs and S3 m
 This application is in large part a web-based reproduction of the excellent AWS DeepRacer workshops [log analysis](https://github.com/aws-samples/aws-deepracer-workshops/tree/master/log-analysis) project
 in an accessible format.
 
-Link to the [sample app](https://soblenes32.github.io/deep-racer-analyzer/) on GitHub.
+<strong>View the [sample app](https://soblenes32.github.io/deep-racer-analyzer/) on GitHub.</strong>
 
 ## Installation
 
