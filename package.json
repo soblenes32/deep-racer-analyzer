@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
     "@tensorflow/tfjs": "^1.5.2",
-    "aws-sdk": "^2.608.0",
+    "aws-sdk": "^2.814.0",
     "d3": "^5.15.0",
     "lz-string": "^1.4.4",
     "ngx-color-picker": "^8.2.0",
